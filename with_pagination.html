@@ -1,0 +1,114 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+</script>
+<title>Super Fans</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <link rel="stylesheet" href="./css/bootstrap.min.css">
+//<link rel="stylesheet" href="./css/normalize.css">
+// <script src="./js/jquery.min.js"></script>
+// <script src="./js/bootstrap.min.js"></script>*/-->
+</head>
+<body >
+<div id="fb-root"></div>
+<script>
+var count = 0;
+function statusChangeCallback(response) {
+	if (response.status === 'connected') {
+		//		window.location = "./result.html";
+		testAPI("/me/albums?fields=id");
+	} else if (response.status === 'not_authorized') {
+		document.getElementById('status').innerHTML = '<br><blockquote>Login to check  who likes your Pictures most.</blockquote>';
+	} else {
+		document.getElementById('status').innerHTML = 'Please log ' +'into Facebook.';
+	}
+}
+function checkLoginState() {
+	FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+			});
+}
+window.fbAsyncInit = function() {
+	FB.init({
+appId      : '411454985723973',
+cookie     : true,  // enable cookies to allow the server to access 
+// the session
+status : true,
+kidDirectedSite: false,
+xfbml      : true,  // parse social plugins on this page
+version    : 'v2.4' // use version 2.2
+});
+
+FB.getLoginStatus(function(response) {
+		statusChangeCallback(response);
+		});
+
+};
+
+// Load the SDK asynchronously
+(function(d, s, id) {
+ var js, fjs = d.getElementsByTagName(s)[0];
+ if (d.getElementById(id)) return;
+ js = d.createElement(s); js.id = id;
+ js.src = "//connect.facebook.net/en_US/sdk.js";
+ fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
+
+function testAPI(url) {
+	FB.api(url, function(response) {
+			var total_photos=0,i;
+			var count = 0;
+			var no_of_albums = response.data.length;
+			for(i=0;i<no_of_albums;i++)
+			{
+			var alb_url = "/"+response.data[i].id+"/"+"photos"+"?"+"limit="+100;
+				
+			 paging_photos(alb_url,total_photos,function(response){
+				  count ++;
+				 total_photos+=response;  
+				 if(count == no_of_albums)
+				 {
+			console.log(total_photos);	 
+			}
+				 });
+			 
+			 }	
+			});	
+}
+function paging_photos(url1,sing,callback) 
+{
+	FB.api(url1,function(response)
+			{
+			sing = sing + response.data.length ;
+			if (response.paging && response.paging.next) {				
+			 //	setTimeout(function() {paging_photos(response.paging.next,sing)},1000);
+			paging_photos(response.paging.next,sing,callback);					
+			}
+			else
+			{
+			//	console.log("finale"+sing);
+				callback(sing);
+			}				
+		});
+}
+
+</script>
+<script>
+</script>
+<div  class="container-fluid" id="start">
+
+<div class="row" align="center">
+<div class="col-md-12">
+<fb:login-button scope="public_profile,email,user_photos" onlogin="checkLoginState();">
+</fb:login-button>
+<div id="status">
+</div>
+</div><!--col-sm-4 -->
+</div><!-- row -->
+
+
+</div>
+</body>
+</html>
