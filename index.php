@@ -3,7 +3,17 @@
 <head>
 <script>
 </script>
-<title>Super Fans</title>
+<title>SuperFans</title>
+<meta property="og:image"content="https://superfans25.herokuapp.com/images/fan1s.png" />
+<meta property="og:title" content="SuperFans" />
+<meta property="og:description" content="App which shows The People who liked your pictures most" />
+<meta property="fb:app_id" content="411454985723973" />
+<meta property="og:url" content="https://apps.facebook.com/my_superfans/" />
+<meta property="og:site_name" content="SuperFans" />
+<meta property="og:locale" content="en_US" />
+<!-- <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:locale:alternate" content="es_ES" />
+-->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -14,6 +24,7 @@
 <body >
 <div id="fb-root"></div>
 <script>
+
 function statusChangeCallback(response) {
 		if (response.status === 'connected') {
 				window.location = "./result.php";
@@ -50,6 +61,7 @@ FB.getLoginStatus(function(response) {
  }(document, 'script', 'facebook-jssdk'));
 </script>
 <div  class="container-fluid" id="start">
+
 </div>
 </body>
 </html>
