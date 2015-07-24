@@ -169,6 +169,7 @@ document.getElementById('output').innerHTML += data_html;
 </script>
 <div class="container-fluid">
 <h1 align="center"><u><strong>Super Fans</strong></u></h1> 
+<h3 align="center">Shows the people who liked your pictures most</h3>
 <hr>
  <div  align="center">
    <div class="fb-like" data-href="https://apps.facebook.com/my_superfans/" data-layout="button_count" data-action="like" data-show-faces="tr
